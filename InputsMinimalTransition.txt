@@ -1,0 +1,4 @@
+-> idle {
+    myAction <= LOW
+    mySensor is HIGH => alert
+}

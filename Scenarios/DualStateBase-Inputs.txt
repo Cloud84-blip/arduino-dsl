@@ -1,0 +1,14 @@
+sensor motionSensor at 11
+sensor motionSensor2 at 12
+alarm securityAlarm at 9
+
+-> idle {
+    securityAlarm <= LOW
+    motionSensor is HIGH AND motionSensor2 is HIGH => alert
+
+}
+
+alert {
+    securityAlarm <= HIGH
+    motionSensor is LOW OR motionSensor2 is LOW => idle
+}

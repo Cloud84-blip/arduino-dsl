@@ -1,0 +1,30 @@
+int securityAlarm;
+int motionSensor;
+int motionSensor2;
+// Initial State
+void idle() {
+  digitalWrite(securityAlarm, LOW);
+  if (digitalRead(motionSensor) == HIGH && digitalRead(motionSensor2) == HIGH) {
+    alert();
+  }
+}
+
+void alert() {
+  digitalWrite(securityAlarm, HIGH);
+  if (digitalRead(motionSensor) == LOW && digitalRead(motionSensor2) == LOW) {
+    idle();
+  }
+}
+
+void setup() {
+  securityAlarm = 9;
+  pinMode(securityAlarm, OUTPUT); // Initialisation de l'alarme
+  motionSensor = 11;
+  pinMode(motionSensor, INPUT); // Initialisation du capteur
+  motionSensor2 = 12;
+  pinMode(motionSensor2, INPUT); // Initialisation du capteur
+}
+
+void loop() {
+  idle();
+}
