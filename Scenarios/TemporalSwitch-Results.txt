@@ -2,32 +2,16 @@ int securityAlarm;
 int motionSensor;
 // Initial State
 void idle() {
-  if (digitalRead(motionSensor) == HIGH) {
-    buttonDown();
-  }
-}
-
-void buttonDown() {
-  if (digitalRead(motionSensor) == LOW) {
-    switchAlert();
-  }
-}
-
-void alertOn() {
-  digitalWrite(securityAlarm, HIGH);
-}
-
-void alertOn() {
   digitalWrite(securityAlarm, LOW);
+  if (digitalRead(motionSensor) == HIGH) {
+    alert();
+  }
 }
 
-void switchAlert() {
-  if (digitalRead(securityAlarm) == LOW) {
-    alertOn();
-  }
-  if (digitalRead(securityAlarm) == HIGH) {
-    alertOff();
-  }
+void alert() {
+  digitalWrite(securityAlarm, HIGH);
+  delay(100);
+  idle();
 }
 
 void setup() {

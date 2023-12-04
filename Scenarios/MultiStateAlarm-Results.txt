@@ -1,0 +1,44 @@
+int buzzer;
+int led;
+int button;
+// Initial State
+void readyToBuzz() {
+  if (digitalRead(button) == HIGH) {
+    buzzing();
+  }
+}
+
+void buzzing() {
+  digitalWrite(buzzer, HIGH);
+  if (digitalRead(button) == HIGH) {
+    turnOnLed();
+  }
+}
+
+void turnOnLed() {
+  digitalWrite(buzzer, LOW);
+  digitalWrite(led, HIGH);
+  if (digitalRead(button) == HIGH) {
+    turnOffLed();
+  }
+}
+
+void turnOffLed() {
+  digitalWrite(led, LOW);
+  if (digitalRead(button) == HIGH) {
+    readyToBuzz();
+  }
+}
+
+void setup() {
+  buzzer = 10;
+  pinMode(buzzer, OUTPUT); // Initialisation de l'alarme
+  led = 9;
+  pinMode(led, OUTPUT); // Initialisation de l'alarme
+  button = 11;
+  pinMode(button, INPUT); // Initialisation du capteur
+}
+
+void loop() {
+  readyToBuzz();
+}

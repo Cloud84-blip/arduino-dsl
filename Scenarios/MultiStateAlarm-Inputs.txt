@@ -1,0 +1,20 @@
+alarm buzzer at 10
+alarm led at 9
+sensor button at 11
+
+-> readyToBuzz {
+    button is HIGH => buzzing
+}
+buzzing {
+    buzzer <= HIGH
+    button is HIGH => turnOnLed
+}
+turnOnLed {
+    buzzer <= LOW
+    led <= HIGH
+    button is HIGH => turnOffLed
+}
+turnOffLed {
+    led <= LOW
+    button is HIGH => readyToBuzz
+}

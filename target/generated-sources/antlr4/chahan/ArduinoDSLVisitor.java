@@ -65,6 +65,12 @@ public interface ArduinoDSLVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTransition(ArduinoDSLParser.TransitionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ArduinoDSLParser#temporal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTemporal(ArduinoDSLParser.TemporalContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ArduinoDSLParser#conditions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

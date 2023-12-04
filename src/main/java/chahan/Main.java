@@ -41,7 +41,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         // Exemple d'entrée DSL
-        Path path = Paths.get("StateSwitchAlarm-Inputs.txt");
+        Path path = Paths.get("TemporalSwitch-Inputs.txt");
         String dslInput;
         dslInput = Main.simpleLineParser(path);
 
@@ -68,7 +68,7 @@ public class Main {
 
         // Afficher ou sauvegarder le code Arduino
         System.out.println(arduinoCode);
-        Path path_res = Paths.get("StateSwitchAlarm-Results.txt");
+        Path path_res = Paths.get("TemporalSwitch-Results.txt");
         Main.writeToFile(path_res, arduinoCode);
     }
 }

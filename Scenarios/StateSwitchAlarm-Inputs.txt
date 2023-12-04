@@ -1,0 +1,14 @@
+alarm led at 9;
+sensor button at 11;
+
+-> idle {
+    button is HIGH => turnOn
+}
+turnOn {
+    led <= HIGH;
+    button is HIGH => turnOff
+}
+turnOff {
+    led <= LOW;
+    button is HIGH => turnOn
+}

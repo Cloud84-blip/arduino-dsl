@@ -128,9 +128,12 @@ public class CodeGenerator extends ArduinoDSLBaseVisitor<Void> {
             for (ArduinoDSLParser.TransitionContext transitionCtx : ctx.transition()) {
                 visitTransition(transitionCtx);
             }
-        } else {
-            System.out.println("-----------No transition----------");
-            System.out.println("Transition: " + ctx.transition());
+        }
+
+        if (ctx.temporal() != null) {
+            for(ArduinoDSLParser.TemporalContext temporalCtx : ctx.temporal()){
+                visitTemporal(temporalCtx);
+            }
         }
         // System.out.println("Trigger: " + ctx.transition().trigger.getText());
         // System.out.println("Value: " + ctx.transition().value.getText());
@@ -167,17 +170,25 @@ public class CodeGenerator extends ArduinoDSLBaseVisitor<Void> {
                 code.append(" ").append(operator).append(" ");
             }
         }
+        code.append(") {\n");
+        indentationLevel++;
+        indent();
+        code.append(ctx.next.getText()).append("();\n");
+        indentationLevel--;
+        indent();
+        code.append("}\n");
 
-    code.append(") {\n");
-    indentationLevel++;
-    indent();
-    code.append(ctx.next.getText()).append("();\n");
-    indentationLevel--;
-    indent();
-    code.append("}\n");
+        return null;
+    }
 
-    return null;
-}
+    @Override
+    public Void visitTemporal(ArduinoDSLParser.TemporalContext ctx) {
+        indent();
+        code.append("delay(").append(ctx.time.getText()).append(");\n");
+        indent();
+        code.append(ctx.next.getText()).append("();\n");
+        return null;
+    }
 
     public String getCode() {
         return code.toString();

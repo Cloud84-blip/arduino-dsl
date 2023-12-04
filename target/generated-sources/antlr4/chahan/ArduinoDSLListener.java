@@ -98,6 +98,16 @@ public interface ArduinoDSLListener extends ParseTreeListener {
 	 */
 	void exitTransition(ArduinoDSLParser.TransitionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ArduinoDSLParser#temporal}.
+	 * @param ctx the parse tree
+	 */
+	void enterTemporal(ArduinoDSLParser.TemporalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ArduinoDSLParser#temporal}.
+	 * @param ctx the parse tree
+	 */
+	void exitTemporal(ArduinoDSLParser.TemporalContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ArduinoDSLParser#conditions}.
 	 * @param ctx the parse tree
 	 */

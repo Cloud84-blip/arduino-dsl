@@ -80,6 +80,13 @@ public class ArduinoDSLBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitTemporal(ArduinoDSLParser.TemporalContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitConditions(ArduinoDSLParser.ConditionsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

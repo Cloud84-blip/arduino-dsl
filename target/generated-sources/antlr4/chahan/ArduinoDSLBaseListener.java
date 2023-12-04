@@ -124,6 +124,18 @@ public class ArduinoDSLBaseListener implements ArduinoDSLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTemporal(ArduinoDSLParser.TemporalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTemporal(ArduinoDSLParser.TemporalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterConditions(ArduinoDSLParser.ConditionsContext ctx) { }
 	/**
 	 * {@inheritDoc}

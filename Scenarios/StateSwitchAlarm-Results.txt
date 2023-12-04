@@ -1,0 +1,33 @@
+int led;
+int button;
+// Initial State
+void idle() {
+  if (digitalRead(button) == HIGH) {
+    turnOn();
+  }
+}
+
+void turnOn() {
+  digitalWrite(led, HIGH);
+  if (digitalRead(button) == HIGH) {
+    turnOff();
+  }
+}
+
+void turnOff() {
+  digitalWrite(led, LOW);
+  if (digitalRead(button) == HIGH) {
+    turnOn();
+  }
+}
+
+void setup() {
+  led = 9;
+  pinMode(led, OUTPUT); // Initialisation de l'alarme
+  button = 11;
+  pinMode(button, INPUT); // Initialisation du capteur
+}
+
+void loop() {
+  idle();
+}
