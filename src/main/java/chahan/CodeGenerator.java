@@ -103,7 +103,6 @@ public class CodeGenerator extends ArduinoDSLBaseVisitor<Void> {
         return null;
     }
 
-
     @Override
     public Void visitState(ArduinoDSLParser.StateContext ctx){
         indent();
@@ -166,7 +165,7 @@ public class CodeGenerator extends ArduinoDSLBaseVisitor<Void> {
 
             // Si il y a un opérateur logique après cette condition, l'ajouter
             if (i < ctx.conditions().condition().size() - 1) {
-                String operator = (ctx.conditions().logicalOP(i).getText().equals("AND")) ? "&&" : "||";
+                String operator = (ctx.conditions().logicalOP().getText().equals("AND")) ? "&&" : "||";
                 code.append(" ").append(operator).append(" ");
             }
         }

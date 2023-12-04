@@ -9,5 +9,5 @@ alarm securityAlarm at 9
 
 alert {
     securityAlarm <= HIGH
-    after 100 => idle
+    after 3000 => idle
 }

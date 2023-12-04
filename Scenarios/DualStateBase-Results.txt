@@ -11,7 +11,7 @@ void idle() {
 
 void alert() {
   digitalWrite(securityAlarm, HIGH);
-  if (digitalRead(motionSensor) == LOW && digitalRead(motionSensor2) == LOW) {
+  if (digitalRead(motionSensor) == LOW || digitalRead(motionSensor2) == LOW) {
     idle();
   }
 }

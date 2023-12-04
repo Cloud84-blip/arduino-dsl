@@ -10,7 +10,7 @@ void idle() {
 
 void alert() {
   digitalWrite(securityAlarm, HIGH);
-  delay(100);
+  delay(3000);
   idle();
 }
 

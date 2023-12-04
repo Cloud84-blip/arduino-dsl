@@ -15,7 +15,7 @@ state        : initial? stateName=ID LCURLY action* transition* temporal* RCURLY
 action       : receiver=ID '<=' value=SIGNAL ;
 transition   : conditions '=>' next=ID ;
 temporal     : 'after' time=NUMBER '=>' next=ID ;
-conditions   : condition (logicalOP condition)* ;
+conditions   : condition (logicalOP condition)? ;
 condition    : trigger=ID 'is' value=SIGNAL ;
 logicalOP    : 'AND' | 'OR' ;
 initial      : '->' ;
