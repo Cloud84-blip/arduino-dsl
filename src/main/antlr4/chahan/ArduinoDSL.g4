@@ -11,7 +11,7 @@ sensor       : 'sensor' location ;
 location     : name=ID 'at' pin=PORT_NUMBER ;
 
 states       : state+ ;
-state        : initial? stateName=ID LCURLY action* transition* temporal* RCURLY ;
+state        : initial? stateName=ID LCURLY action* (transition|temporal)* RCURLY ;
 action       : receiver=ID '<=' value=SIGNAL ;
 transition   : conditions '=>' next=ID ;
 temporal     : 'after' time=NUMBER '=>' next=ID ;
