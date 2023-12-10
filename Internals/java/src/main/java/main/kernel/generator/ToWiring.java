@@ -26,7 +26,6 @@ public class ToWiring extends Visitor<StringBuffer> {
 		w("// Wiring code generated from an ArduinoML model\n");
 		w(String.format("// Application name: %s\n", root.getName())+"\n");
 
-		w("long debounce = 200;\n");
 		w("\nenum STATE {");
 		String sep ="";
 		for(State state: root.getStates()){
@@ -75,8 +74,6 @@ public class ToWiring extends Visitor<StringBuffer> {
 	@Override
 	public void visit(Sensor sensor) {
 		if(context.get("pass") == PASS.ONE) {
-			w(String.format("\nboolean %sBounceGuard = false;\n", sensor.getName()));
-			w(String.format("long %sLastDebounceTime = 0;\n", sensor.getName()));
 			return;
 		}
 		if(context.get("pass") == PASS.TWO) {
@@ -115,11 +112,8 @@ public class ToWiring extends Visitor<StringBuffer> {
 			if(transition.getSensors() == null) return;
 			for (int i = 0; i < transition.getSensors().length; i++) {
 				String sensorName = transition.getSensors()[i].getName();
-				w(String.format("\t\t\t%sBounceGuard = millis() - %sLastDebounceTime > debounce;\n",
-						sensorName, sensorName));
-				w(String.format("\t\t\tif( digitalRead(%d) == %s && %sBounceGuard) {\n",
+				w(String.format("\t\t\tif( digitalRead(%d) == %s) {\n",
 						transition.getSensors()[i].getPin(), transition.getValues()[i], sensorName));
-				w(String.format("\t\t\t\t%sLastDebounceTime = millis();\n", sensorName));
 				w("\t\t\t\tcurrentState = " + transition.getNext().getName() + ";\n");
 				w("\t\t\t}\n");
 			}
