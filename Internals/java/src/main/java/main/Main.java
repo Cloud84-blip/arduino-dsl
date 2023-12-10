@@ -14,8 +14,8 @@ public class Main {
         //Root myRoot = BasicScenario1();
         //Root myRoot = BasicScenario2();
         //Root myRoot = BasicScenario3();
-        //Root myRoot = BasicScenario4();
-        Root myRoot = ScenarioTemporalTransition();
+        Root myRoot = BasicScenario4();
+        //Root myRoot = ScenarioTemporalTransition();
 
         Visitor codeGenerator = new ToWiring();
         myRoot.accept(codeGenerator);
