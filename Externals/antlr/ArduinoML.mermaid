@@ -6,7 +6,7 @@ classDiagram
     root *-- "1..*" State
 
     class Component {
-        pin: Number
+        +pin: Number
     }
     Component <|-- Sensor
     Component <|-- Alarm
@@ -15,7 +15,7 @@ classDiagram
     class Transition
     State *-- "1" Transition: transition
     class Action {
-        value: Signal
+        +value: Signal
     }
     State *-- "0..*" Action: Actions
     Action --> "1" Alarm: alarm switch
@@ -25,26 +25,35 @@ classDiagram
 
     Transition <|-- PinBased
 
-    class Conditions {
-    }
-
     class Condition {
-        name: ID
-        value: Signal
+        +name: ID
     }
 
-    class logicalOP {
-        OR
-        AND
+    class SimpleCondition {
+        
+        +value: Signal
     }
 
-    Conditions *-- "0..1" logicalOP
-    Conditions *-- "1..2" Condition
+    class ComposedCondition {
+        +cond: SimpleCondition
+        +op: OPERATOR
+    }
 
-    Transition *-- "1..2" Conditions
+
+    class  OPERATOR {
+        +OR
+        +AND
+    }
+
+    ComposedCondition o--> "2" SimpleCondition 
+
+    Condition <|--  ComposedCondition
+    Condition <|--  SimpleCondition
+
+    PinBased *-- "1" Condition
 
     class Temporal {
-       duration: Number 
+       +duration: Number 
     }
     Transition <|-- Temporal
 
