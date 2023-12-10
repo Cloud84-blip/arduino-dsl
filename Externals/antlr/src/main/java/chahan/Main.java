@@ -16,6 +16,21 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
+    public static File[] listFiles(String folderPath) {
+        // Remplacez ce chemin par le chemin du dossier que vous voulez explorer
+        File folder = new File(folderPath);
+
+        // Liste tous les fichiers et dossiers dans le dossier spécifié
+        File[] listOfFiles = folder.listFiles();
+
+        // Vérifie si le dossier est vide ou n'existe pas
+        if (listOfFiles == null) {
+            System.out.println("Le dossier n'existe pas ou est vide.");
+            return null;
+        }
+
+        return listOfFiles;
+    }
 
     public static String simpleLineParser(Path path) {
         StringBuilder lines = new StringBuilder();
@@ -40,36 +55,32 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        // Exemple d'entrée DSL
-        Path path = Paths.get("DualStateBase-Inputs.txt");
-        String dslInput;
-        dslInput = Main.simpleLineParser(path);
 
+        File[] listOfFiles = listFiles("./Scenarios");
+        for (File file : listOfFiles) {
+            if (file.isFile()) {
+                Path path = Paths.get("./Scenarios/"+file.getName());
+                String dslInput = Main.simpleLineParser(path);
+                Path path_res = Paths.get("./Results/"+file.getName() + "_RES");
 
-        // Analyse du DSL
-        // ANTLRInputStream input = new ANTLRInputStream(dslInput);
-        ArduinoDSLLexer lexer = new ArduinoDSLLexer(CharStreams.fromString(dslInput));
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
+                // Analyse du DSL
+                // ANTLRInputStream input = new ANTLRInputStream(dslInput);
+                ArduinoDSLLexer lexer = new ArduinoDSLLexer(CharStreams.fromString(dslInput));
+                CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-        ArduinoDSLParser parser = new ArduinoDSLParser(tokens);
-        ArduinoDSLParser.RootContext context = parser.root();
-        CodeGenerator generator = new CodeGenerator();
-        generator.visit(context);
-        String arduinoCode = generator.getCode();
+                ArduinoDSLParser parser = new ArduinoDSLParser(tokens);
+                ArduinoDSLParser.RootContext context = parser.root();
+                CodeGenerator generator = new CodeGenerator();
+                generator.visit(context);
+                String arduinoCode = generator.getCode();
 
-
-        // ParseTree tree = parser.program();
-
-        // Génération du code
-        // CodeGenerator generator = new CodeGenerator();
-        // generator.visit(tree);
-        // Récupérer le code Arduino généré
-        // String arduinoCode = generator.getCode();
-
-        // Afficher ou sauvegarder le code Arduino
-        System.out.println(arduinoCode);
-        Path path_res = Paths.get("DualStateBase-Results.txt");
-        Main.writeToFile(path_res, arduinoCode);
+                System.out.println(arduinoCode);
+                
+                Main.writeToFile(path_res, arduinoCode);
+            } else if (file.isDirectory()) {
+                System.out.println("Directory " + file.getName());
+            }
+        }
     }
 }
 
